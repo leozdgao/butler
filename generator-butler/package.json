@@ -1,0 +1,35 @@
+{
+  "name": "generator-butler",
+  "version": "0.1.0",
+  "description": "generator in my own habbit",
+  "homepage": "https://github.com/leozdgao/butler#readme",
+  "author": "leozdgao",
+  "files": [
+    "generators"
+  ],
+  "main": "index.js",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leozdgao/butler.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leozdgao/butler/issues"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "deep-extend": "^0.4.1",
+    "yeoman-generator": "^0.22.0",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "yeoman-test": "^1.0.0",
+    "yeoman-assert": "^2.0.0"
+  }
+}
