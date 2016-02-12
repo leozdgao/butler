@@ -1,4 +1,5 @@
 var generators = require('yeoman-generator')
+var utils = require('../utils')
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -17,24 +18,18 @@ module.exports = generators.Base.extend({
   },
 
   writing: function () {
-    this.fs.copyTpl(
-      this.templatePath('.eslintrc'),
-      this.destinationPath('.eslintrc'),
-      { needBabel: this.options.babel, needReact: this.options.react }
-    )
+    utils.copyTpl(this, '.eslintrc', {
+      needBabel: this.options.babel,
+      needReact: this.options.react
+    })
+    utils.copy(this, '.eslintignore')
 
-    this.fs.copy(
-      this.templatePath('.eslintignore'),
-      this.destinationPath('.eslintignore')
-    )
-  },
-  install: function () {
-    var deps = [
-      'eslint'
-    ]
-    if (this.options.babel) deps.push('babel-eslint')
-    if (this.options.react) deps.push('eslint-plugin-react')
+    var deps = {
+      "eslint": "^1.10.3"
+    }
+    if (this.options.babel) deps['babel-eslint'] = '^4.1.8'
+    if (this.options.react) deps['eslint-plugin-react'] = '^3.16.1'
 
-    this.npmInstall(deps, { saveDev: true })
+    utils.writeDependencies(this, { }, deps)
   }
 })

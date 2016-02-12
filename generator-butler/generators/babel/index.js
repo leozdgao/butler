@@ -1,5 +1,5 @@
 var generators = require('yeoman-generator')
-var extend = require('deep-extend')
+var utils = require('../utils')
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -13,34 +13,22 @@ module.exports = generators.Base.extend({
   },
 
   writing: function () {
-    this.fs.copyTpl(
-      this.templatePath('.babelrc'),
-      this.destinationPath('.babelrc'),
-      { needReact: this.options.react }
-    )
+    utils.copyTpl(this, '.babelrc', { needReact: this.options.react })
 
     // reformat json file
     var content = this.fs.readJSON(this.destinationPath('.babelrc'), { })
     this.fs.writeJSON(this.destinationPath('.babelrc'), content)
 
     // add dependencies
-    // var pkg = this.fs.readJSON(this.destinationPath('package.json'))
-    // extend(pkg, {
-    //   devDependencies: {
-    //
-    //   }
-    // })
-    //
-    // this.fs.writeJSON(this.destinationPath('package.json'), pkg)
-  },
+    var deps = {
+      "babel": "^6.5.1",
+      "babel-core": "^6.5.1",
+      "babel-preset-es2015": "^6.5.0",
+      "babel-preset-stage-0": "^6.5.0",
+      "eslint": "^1.10.3"
+    }
+    if (this.options.react) deps['babel-preset-react'] = '^6.5.0'
 
-  install: function () {
-    var deps = [
-      'babel', 'babel-core',
-      'babel-preset-es2015',
-      'babel-preset-stage-0'
-    ]
-    if (this.options.react) deps.push('babel-preset-react')
-    this.npmInstall(deps, { saveDev: true })
+    utils.writeDependencies(this, { }, deps)
   }
 })

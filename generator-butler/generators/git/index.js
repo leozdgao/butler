@@ -1,16 +1,9 @@
 var generators = require('yeoman-generator')
+var utils = require('../utils')
 
 module.exports = generators.Base.extend({
   writing: function () {
-    this.fs.copy(
-      this.templatePath('.gitattributes'),
-      this.destinationPath('.gitattributes')
-    )
-
-    this.fs.copy(
-      this.templatePath('.gitignore'),
-      this.destinationPath('.gitignore')
-    )
+    utils.copy(this)
   },
 
   end: function () {

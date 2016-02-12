@@ -1,4 +1,3 @@
-'use strict';
 var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
@@ -31,11 +30,11 @@ module.exports = generators.Base.extend({
     this.composeWith('butler:git', {}, {
       local: require.resolve('../git')
     })
-    this.composeWith('butler:eslint', { babel: this.options.babel, react: this.options.react }, {
+    this.composeWith('butler:eslint', { options: { babel: this.options.babel, react: this.options.react } }, {
       local: require.resolve('../eslint')
     })
     if (this.options.babel) {
-      this.composeWith('butler:babel', { react: this.options.react }, {
+      this.composeWith('butler:babel', { options: { react: this.options.react } }, {
         local: require.resolve('../babel')
       })
     }
