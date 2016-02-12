@@ -1,7 +1,5 @@
 # generator-butler
 
- <!-- [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url] -->
-
 > generator in my own habbit
 
 ## Installation
@@ -26,13 +24,3 @@ Yeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he
 ## License
 
 MIT © [leozdgao]()
-
-
-<!-- [npm-image]: https://badge.fury.io/js/generator-butler.svg
-[npm-url]: https://npmjs.org/package/generator-butler
-[travis-image]: https://travis-ci.org/leozdgao/generator-butler.svg?branch=master
-[travis-url]: https://travis-ci.org/leozdgao/generator-butler
-[daviddm-image]: https://david-dm.org/leozdgao/generator-butler.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/leozdgao/generator-butler
-[coveralls-image]: https://coveralls.io/repos/leozdgao/generator-butler/badge.svg
-[coveralls-url]: https://coveralls.io/r/leozdgao/generator-butler -->
