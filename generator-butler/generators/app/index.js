@@ -8,6 +8,10 @@ module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments)
 
+    // this.argument('appname', { type: String });
+    // this.argument('cc', { type: String });
+
+    // set options
     this.option('name', {
       type: String,
       desc: "name of this project."
@@ -25,6 +29,10 @@ module.exports = generators.Base.extend({
   },
 
   initializing: function () {
+    // this.log(this.appname)
+    // this.log(this.cc)
+    // this.log(typeof this.options.name)
+
     // 如果目录下已经存在 package.json，之后就不再出现 prompt 提问
     var pkg = utils.readPackageJSON(this)
     var name = pkg.name || this.options.name // 项目名字
@@ -35,7 +43,8 @@ module.exports = generators.Base.extend({
       description: pkg.description,
       version: pkg.version,
       homepage: pkg.homepage,
-      keywords: pkg.keywords
+      keywords: pkg.keywords,
+      license: pkg.license
     }
 
     if (_.isObject(pkg.author)) {
@@ -123,15 +132,31 @@ module.exports = generators.Base.extend({
 
   default: function () {
     // execute other sub-generators
-    this.composeWith('butler:git', {}, {
+    this.composeWith('butler:git', { }, {
       local: require.resolve('../git')
     })
-    this.composeWith('butler:eslint', { options: { babel: this.options.babel, react: this.options.react } }, {
+    this.composeWith('butler:eslint', {
+      options: { babel: this.options.babel, react: this.options.react }
+    }, {
       local: require.resolve('../eslint')
     })
     if (this.options.babel) {
-      this.composeWith('butler:babel', { options: { react: this.options.react } }, {
+      this.composeWith('butler:babel', {
+        options: { react: this.options.react }
+      }, {
         local: require.resolve('../babel')
+      })
+    }
+    // select a License
+    if (!this.props.license) {
+      this.composeWith('license', {
+        options: {
+          name: this.props.authorName,
+          email: this.props.authorEmail,
+          website: this.props.authorUrl
+        }
+      }, {
+        local: require.resolve('generator-license/app')
       })
     }
   },
@@ -141,7 +166,7 @@ module.exports = generators.Base.extend({
     var pkg = utils.readPackageJSON(this)
     pkg = _.merge(pkg, {
       name: this.props.name,
-      version: '0.1.0',
+      version: '0.1.0', // version number for a new project
       description: this.props.description,
       homepage: this.props.homepage,
       author: {

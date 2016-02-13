@@ -17,19 +17,22 @@ module.exports = generators.Base.extend({
     })
   },
 
-  writing: function () {
-    utils.copyTpl(this, '.eslintrc', {
-      needBabel: this.options.babel,
-      needReact: this.options.react
-    })
-    utils.copy(this, '.eslintignore')
+  writing: {
+    files: function () {
+      utils.copyTpl(this, '.eslintrc', {
+        needBabel: this.options.babel,
+        needReact: this.options.react
+      })
+      utils.copy(this, '.eslintignore')
+    },
+    pkg: function () {
+      var deps = {
+        "eslint": "^1.10.3"
+      }
+      if (this.options.babel) deps['babel-eslint'] = '^4.1.8'
+      if (this.options.react) deps['eslint-plugin-react'] = '^3.16.1'
 
-    var deps = {
-      "eslint": "^1.10.3"
+      utils.writeDependencies(this, { }, deps)
     }
-    if (this.options.babel) deps['babel-eslint'] = '^4.1.8'
-    if (this.options.react) deps['eslint-plugin-react'] = '^3.16.1'
-
-    utils.writeDependencies(this, { }, deps)
   }
 })
