@@ -3,35 +3,49 @@ var fs = require('fs')
 var extend = require('deep-extend')
 
 module.exports = {
-  copyTpl: function (generator, file, options) {
-    generator.fs.copyTpl(
+  copyTpl, copy, writeDependencies,
+  readPackageJSON, writePackageJSON
+}
+
+function copyTpl (generator, file, options) {
+  generator.fs.copyTpl(
+    generator.templatePath(file),
+    generator.destinationPath(file),
+    options
+  )
+}
+
+function copy (generator, file) {
+  if (file) paste(file)
+  else recursive(generator, '.', paste)
+
+  function paste (file) {
+    generator.fs.copy(
       generator.templatePath(file),
-      generator.destinationPath(file),
-      options
+      generator.destinationPath(file)
     )
-  },
-  copy: function (generator, file) {
-    if (file) paste(file)
-    else recursive(generator, '.', paste)
-
-    function paste (file) {
-      generator.fs.copy(
-        generator.templatePath(file),
-        generator.destinationPath(file)
-      )
-    }
-  },
-  writeDependencies: function (generator, deps, devDeps) {
-    var pkgFile = generator.destinationPath('package.json')
-    var pkg = generator.fs.readJSON(pkgFile) || { }
-
-    extend(pkg, {
-      dependencies: deps,
-      devDependencies: devDeps
-    })
-
-    generator.fs.writeJSON(pkgFile, pkg)
   }
+}
+
+function writeDependencies (generator, deps, devDeps) {
+  var pkg = readPackageJSON(generator)
+
+  extend(pkg, {
+    dependencies: deps,
+    devDependencies: devDeps
+  })
+
+  writePackageJSON(generator, pkg)
+}
+
+function readPackageJSON (generator) {
+  var pkgFile = generator.destinationPath('package.json')
+  return generator.fs.readJSON(pkgFile) || { }
+}
+
+function writePackageJSON (generator, pkg) {
+  var pkgFile = generator.destinationPath('package.json')
+  generator.fs.writeJSON(pkgFile, pkg)
 }
 
 function recursive (generator, sub, cb) {
