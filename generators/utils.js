@@ -60,7 +60,7 @@ function recursive (generator, sub, cb) {
   files.forEach(function (file) {
     var stat = fs.statSync(path.resolve(pwd, file))
     var p = path.join(sub, file)
-    if (stat.isDirectory()) recursive(p)
+    if (stat.isDirectory()) recursive(generator, p, cb)
     if (stat.isFile()) cb(p)
   })
 }

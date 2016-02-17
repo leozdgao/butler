@@ -1,4 +1,5 @@
 var generators = require('yeoman-generator')
+var _ = require('lodash')
 var utils = require('../utils')
 
 module.exports = generators.Base.extend({
@@ -10,23 +11,26 @@ module.exports = generators.Base.extend({
       desc: 'need to use React or not.',
       defaults: false
     })
-    this.props = {
-      needCli: false
-    }
+    this.option('cli', {
+      type: Boolean,
+      desc: 'need cli for babel (enable it when writing a library)'
+    })
   },
 
   prompting: function () {
-    var done = this.async()
+    if (_.isUndefined(this.options.cli)) {
+      var done = this.async()
 
-    this.prompt({
-      type: 'confirm',
-      name: 'needCli',
-      message: 'need cli for babel? (enabel it when writing a libirary)',
-      default: false
-    }, answer => {
-      this.props.needCli = answer.needCli
-      done()
-    })
+      this.prompt({
+        type: 'confirm',
+        name: 'needCli',
+        message: 'need cli for babel? (enable it when writing a library)',
+        default: false
+      }, answer => {
+        this.options.cli = answer.needCli
+        done()
+      })
+    }
   },
 
   writing: {
@@ -46,14 +50,14 @@ module.exports = generators.Base.extend({
         'babel-preset-stage-0': '^6.5.0'
       }
       if (this.options.react) deps['babel-preset-react'] = '^6.5.0'
-      if (this.props.needCli) {
+      if (this.options.cli) {
         deps['babel-cli'] = '^6.5.1'
       }
 
       var pkg = {
         devDependencies: deps
       }
-      if (this.props.needCli) {
+      if (this.options.cli) {
         pkg.scripts = {
           prepublish: "babel ./src/ -d ./lib"
         }

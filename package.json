@@ -1,6 +1,6 @@
 {
   "name": "generator-butler",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "generator in my own habbit",
   "homepage": "https://github.com/leozdgao/butler#readme",
   "author": "leozdgao",
@@ -25,6 +25,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "deep-extend": "^0.4.1",
+    "generator-license": "^3.1.1",
     "inquirer-npm-name": "^1.0.0",
     "lodash": "^4.3.0",
     "parse-author": "^0.2.0",
