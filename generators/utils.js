@@ -4,7 +4,7 @@ var extend = require('deep-extend')
 
 module.exports = {
   copyTpl, copy, writeDependencies,
-  readPackageJSON, writePackageJSON
+  readPackageJSON, writePackageJSON, extendPackageJSON
 }
 
 function copyTpl (generator, file, options) {
@@ -28,12 +28,16 @@ function copy (generator, file) {
 }
 
 function writeDependencies (generator, deps, devDeps) {
-  var pkg = readPackageJSON(generator)
-
-  extend(pkg, {
+  extendPackageJSON(generator, {
     dependencies: deps,
     devDependencies: devDeps
   })
+}
+
+function extendPackageJSON (generator, others) {
+  var pkg = readPackageJSON(generator)
+
+  extend(pkg, others)
 
   writePackageJSON(generator, pkg)
 }

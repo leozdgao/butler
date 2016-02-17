@@ -67,7 +67,7 @@ module.exports = generators.Base.extend({
       var done = this.async()
       askName({
         name: 'name',
-        message: 'You project name',
+        message: 'You project name'
       }, this, function (name) {
         this.props.name = name
         done()
@@ -76,7 +76,7 @@ module.exports = generators.Base.extend({
     askForProps: function () {
       var done = this.async()
 
-      var prompts = [{
+      var prompts = [ {
         name: 'description',
         message: 'Description',
         when: !this.props.description
@@ -108,7 +108,7 @@ module.exports = generators.Base.extend({
         filter: function (words) {
           return words.split(/\s*,\s*/g)
         }
-      }]
+      } ]
 
       this.prompt(prompts, function (props) {
         this.props = _.merge(this.props, props)
