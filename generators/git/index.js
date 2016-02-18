@@ -8,5 +8,8 @@ module.exports = generators.Base.extend({
 
   end: function () {
     // init git repo maybe?
+    this.spawnCommandSync('git', [ 'init' ], {
+      cwd: this.destinationPath()
+    })
   }
 })

@@ -11,7 +11,9 @@
 
   rules:
     # Stylistic issue
+    new-cap: 0
     quotes: 0
+    quote-props: 0
     indent: [1, 2]
     array-bracket-spacing: [1, always]
     comma-spacing: 1
@@ -24,6 +26,8 @@
     space-after-keywords: [1, always]
     no-inline-comments: 0
     brace-style: 0
+    dot-notation: 0
+    no-used-vars: 0
 
     # Best practice
     curly: [2,  multi-line]

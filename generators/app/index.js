@@ -31,6 +31,7 @@ module.exports = generators.Base.extend({
       name: 'type',
       message: 'Choose your project type',
       choices: [
+        { name: 'Express app', value: 'express' },
         { name: 'Library for common module', value: 'lib' }
       ]
     }, answer => {
@@ -41,7 +42,8 @@ module.exports = generators.Base.extend({
 
   default: function () {
     var map = {
-      lib: '../lib'
+      lib: '../lib',
+      express: '../express'
     }
     var ns = 'butler:' + this.props.type
     var local = map[this.props.type]
