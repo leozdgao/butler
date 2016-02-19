@@ -4,6 +4,7 @@ const express = require('express')
 const fp = require('path')
 const env = require('../config/environment')
 const cgiHandler = require('./helpers/cgiHandler')
+const logger = require('./helpers/logger')
 const __IS_PROD__ = env.__IS_PROD__
 
 const app = express()
@@ -69,6 +70,9 @@ function appendErrorHandler (app) {
     next(err)
   })
   app.use((err, req, res, next) => {
+    if (err.status !== 404) {
+      logger.error(err.message)
+    }
     res.render('error', {
       layout: false,
       err
@@ -142,7 +146,10 @@ app.use((req, res, next) => {
   next(err)
 })
 app.use((err, req, res, next) => {
-  res.status(200).json({ msg: err.message })
+  if (err.status !== 404) {
+    logger.error(err.message)
+  }
+  res.status(err.status).end()
 })
 <% } %>
 

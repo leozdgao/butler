@@ -31,6 +31,7 @@ module.exports = generators.Base.extend({
       name: 'type',
       message: 'Choose your project type',
       choices: [
+        { name: 'Basic for FE demo', value: 'basic' },
         { name: 'Express app', value: 'express' },
         { name: 'Library for common module', value: 'lib' }
       ]

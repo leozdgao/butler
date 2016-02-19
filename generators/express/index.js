@@ -105,14 +105,20 @@ module.exports = generators.Base.extend({
       walk: '^2.3.9',
       chalk: '^1.1.1',
       lodash: '^4.5.0',
+      "mkdirp": "^0.5.1",
       "superagent": "^1.7.2",
-      "uglify-js": "^2.6.1"
+      "uglify-js": "^2.6.1",
+      "winston": "^2.1.1"
     }
     var devDeps = {
-      debug: '^2.2.0',
-      "webpack-dev-middleware": "^1.4.0"
+      debug: '^2.2.0'
     }
 
+    if (isWebhost) {
+      devDeps = extend(devDeps, {
+        "webpack-dev-middleware": "^1.4.0"
+      })
+    }
     if (this.props.webpack) {
       devDeps = extend(devDeps, {
         "webpack-hot-middleware": "^2.6.0"
