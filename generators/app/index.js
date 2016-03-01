@@ -43,6 +43,7 @@ module.exports = generators.Base.extend({
 
   default: function () {
     var map = {
+      basic: '../basic',
       lib: '../lib',
       express: '../express'
     }
