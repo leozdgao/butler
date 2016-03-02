@@ -55,6 +55,7 @@ module.exports = generators.Base.extend({
   writing: function () {
     var deps = {
       "autoprefixer-loader": "^3.1.0",
+      "babel-loader": "^6.2.4",
       "connect-history-api-fallback": "^1.1.0",
       "css-loader": "^0.23.0",
       "express": "^4.13.4",
@@ -67,6 +68,12 @@ module.exports = generators.Base.extend({
       "webpack-hot-middleware": "^2.8.1"
     }
     utils.writeDependencies(this, {}, deps)
+    utils.extendPackageJSON(this, {
+      "scripts": {
+        "start": "node bin/dev"
+      }
+    })
+
     utils.copy(this)
   },
 

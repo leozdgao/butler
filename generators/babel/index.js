@@ -44,7 +44,6 @@ module.exports = generators.Base.extend({
     pkg: function () {
       // add dependencies
       var deps = {
-        'babel': '^6.5.1',
         'babel-core': '^6.5.1',
         'babel-preset-es2015': '^6.5.0',
         'babel-preset-stage-0': '^6.5.0'
